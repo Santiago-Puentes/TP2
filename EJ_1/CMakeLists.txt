@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(Pokemons LANGUAGES CXX)
 
-# Indicamos que use C++17
-set(CMAKE_CXX_STANDARD 17)
+# Indicamos que use C++20
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 1) Buscamos todos los .cpp dentro de src/

@@ -1,0 +1,18 @@
+# Ignorar todo lo generado por CMake
+**/CMakeFiles/
+**/CMakeCache.txt
+**/cmake_install.cmake
+**/Makefile
+**/CTestTestfile.cmake
+**/CTestCustom.cmake
+**/Testing/
+
+# Carpetas comunes de build
+/build/
+/bin/
+/cmake-build-*/
+
+# Archivos ejecutables
+*.out
+*.exe
+/.vscode/

@@ -41,7 +41,7 @@ class PokemonInfo {
     set_ataques ataquesPNivel;
     array<uint, 3> experienciaPNivel;
     public:
-        PokemonInfo(const string&, const string&, const set_ataques&, const array<uint, 3>&);
+        PokemonInfo(const string&, const string&, const set_ataques &, const array<uint, 3>&);
         const string& getTipo() const;
         const string& getDescripcion() const;
         const set_ataques& getAtaquesPNivel() const;
