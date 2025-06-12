@@ -16,7 +16,7 @@ ostream& operator<<(ostream& os, const pair<T, U>& p) {
     return os;
 }
 
-bool Pokemon::operator==(const Pokemon& other) {
+bool Pokemon::operator==(const Pokemon& other) const {
     return (nombre == other.nombre && experiencia == other.experiencia);
 }
 
@@ -25,14 +25,17 @@ ostream& operator<<(ostream& os, const Pokemon& poke) {
     return os;
 }
 
-
 ostream& operator<<(ostream& os, const PokemonInfo& info) {
     os << "Tipo: " << info.getTipo()
         << "\nDescripción: " << info.getDescripcion()
-        << "\nAtaques disponiblees: ";
-        copy(info.getAtaques_lvl().begin(), info.getAtaques_lvl().end(), ostream_iterator<int>(os, "-"));
-    os << "Experiencia por nivel: ";
-        copy(info.getXP_lvl().begin(), info.getXP_lvl().end(), ostream_iterator<int>(os, "-"));
+        << "\nAtaques disponibles: ";
+    for (const auto& ataque : info.getAtaques_lvl()) {
+        os << "(" << ataque.first << ": " << ataque.second << ")-";
+    }
+    os << "\nExperiencia por nivel: ";
+    for (const auto& xp : info.getXP_lvl()) {
+        os << xp << "-";
+    }
     os << endl;
     return os;
 }
@@ -56,14 +59,14 @@ void Pokedex::serializar() const {
         return;
     }
 
-    uint cant = Pokedata.size();
+    uint cant = static_cast<uint>(Pokedata.size());
     out.write(reinterpret_cast<const char*>(&cant), sizeof(cant));
 
     for (const auto& [poke, info] : Pokedata) {
         // Serializar nombre
-        uint len = poke.getNombre().size();
-        out.write(reinterpret_cast<const char*>(&len), sizeof(len));
-        out.write(poke.getNombre().c_str(), len);
+        uint nombre_len = static_cast<uint>(poke.getNombre().size());
+        out.write(reinterpret_cast<const char*>(&nombre_len), sizeof(nombre_len));
+        out.write(poke.getNombre().c_str(), nombre_len);
 
         // Serializar experiencia
         uint xp = poke.getXP();
@@ -71,9 +74,9 @@ void Pokedex::serializar() const {
 
         // Serializar tipo y descripción
         auto write_string = [&](const string& s) {
-            uint len = s.size();
-            out.write(reinterpret_cast<const char*>(&len), sizeof(len));
-            out.write(s.c_str(), len);
+            uint str_len = static_cast<uint>(s.size());
+            out.write(reinterpret_cast<const char*>(&str_len), sizeof(str_len));
+            out.write(s.c_str(), str_len);
         };
 
         write_string(info.getTipo());
@@ -81,7 +84,7 @@ void Pokedex::serializar() const {
 
         // Serializar ataques por nivel
         const auto& ataques = info.getAtaques_lvl();
-        uint cant_ataques = ataques.size();
+        uint cant_ataques = static_cast<uint>(ataques.size());
         out.write(reinterpret_cast<const char*>(&cant_ataques), sizeof(cant_ataques));
         for (const auto& [nombre, dmg] : ataques) {
             write_string(nombre);
@@ -94,7 +97,6 @@ void Pokedex::serializar() const {
             out.write(reinterpret_cast<const char*>(&xp_n), sizeof(xp_n));
         }
     }
-
     // el destructor de ofstream lo cierra solo
 }
 

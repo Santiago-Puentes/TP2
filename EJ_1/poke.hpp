@@ -21,18 +21,9 @@ class Pokemon {
         Pokemon(const string& name, uint xp) : nombre(name), experiencia(xp) {};
         const string& getNombre() const {return nombre;}
         uint getXP() const {return experiencia;}
-        bool operator==(const Pokemon&);
+        bool operator==(const Pokemon&) const;
         ~Pokemon() = default;
 };
-
-namespace std {
-    template<>
-    struct hash<Pokemon>{
-        size_t operator()(const Pokemon& p) const {
-            return hash<string>()(p.getNombre());
-        }
-    };
-}
 
 class PokemonInfo {
     string tipo;
@@ -49,6 +40,19 @@ class PokemonInfo {
         const array<uint, 3>& getXP_lvl() const {return experienciaPNivel;}
         ~PokemonInfo() = default;
 };
+
+// Declaraciones de operadores de salida
+ostream& operator<<(ostream& os, const Pokemon& poke);
+ostream& operator<<(ostream& os, const PokemonInfo& info);
+
+namespace std {
+    template<>
+    struct hash<Pokemon>{
+        size_t operator()(const Pokemon& p) const {
+            return hash<string>()(p.getNombre());
+        }
+    };
+}
 
 class Pokedex {
     unordered_map<Pokemon, PokemonInfo> Pokedata;
