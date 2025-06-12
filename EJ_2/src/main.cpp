@@ -52,7 +52,7 @@ class Drone{
             double elapsed = chrono::duration_cast<chrono::milliseconds>(now - start).count();
 
             print.lock();
-            cout << "[+" << elapsed << "ms] " << "Drone " << id << msg << endl;
+            cout << "[T: " << elapsed << "ms] " << "Drone " << id << msg << endl;
             print.unlock();
         }
 
@@ -61,7 +61,7 @@ class Drone{
 
 
 int main() {
-    auto start_time = std::chrono::steady_clock::now(); //Inicializamos el cronometro
+    auto start_time = chrono::steady_clock::now(); //Inicializamos el cronometro
     mutex print;    //mutex para cout
     array<mutex, 5> zonas;  //arreglo de zonas
     array<Drone, 5> drone_o;    //arreglo de objetos Drone

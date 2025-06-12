@@ -1,4 +1,4 @@
-# Ignorar todo lo generado por CMake
+# Ignorar todo lo que genere CMake
 **/CMakeFiles/
 **/CMakeCache.txt
 **/cmake_install.cmake
@@ -7,13 +7,17 @@
 **/CTestCustom.cmake
 **/Testing/
 
-# Carpetas comunes de build
-/build/
-/bin/
-/cmake-build-*/
+# Ignorar carpetas build/ y bin/ en cualquier parte
+**/build/
+**/bin/
 
-# Archivos ejecutables
+# Ignorar carpetas de generadores de CMake
+**/cmake-build-*/
+
+# Ignorar ejecutables por extensión
 *.out
 *.exe
+
+# Config de VS Code
 /.vscode/
 Drones
