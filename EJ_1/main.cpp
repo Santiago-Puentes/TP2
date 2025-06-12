@@ -62,4 +62,5 @@ int main(){
     dex[poke1] = info1;
     dex[poke2] = info2;
     dex[poke3] = info3;
+    dex.mostrarTodos();
 }

@@ -16,27 +16,35 @@ ostream& operator<<(ostream& os, const pair<T, U>& p) {
     return os;
 }
 
+template<>
+ostream& operator<<(ostream& os, const pair<const Pokemon, PokemonInfo>& p) {
+    os << p.first << p.second;
+    return os;
+}
+
 bool Pokemon::operator==(const Pokemon& other) const {
     return (nombre == other.nombre && experiencia == other.experiencia);
 }
 
 ostream& operator<<(ostream& os, const Pokemon& poke) {
-    os << "Nombre: " << poke.getNombre() << ", XP: " << poke.getXP() << endl;
+    os << "Nombre: " << poke.getNombre() 
+        << "\nXP: " << poke.getXP() << endl;
     return os;
 }
 
 ostream& operator<<(ostream& os, const PokemonInfo& info) {
     os << "Tipo: " << info.getTipo()
         << "\nDescripción: " << info.getDescripcion()
-        << "\nAtaques disponibles: ";
+        << "\nAtaques disponibles: [";
     for (const auto& ataque : info.getAtaques_lvl()) {
-        os << "(" << ataque.first << ": " << ataque.second << ")-";
+        os << ataque;
     }
-    os << "\nExperiencia por nivel: ";
+    os << "]\nExperiencia por nivel: ";
+    os << "[";
     for (const auto& xp : info.getXP_lvl()) {
-        os << xp << "-";
+        os << "(" << xp << ")";
     }
-    os << endl;
+    os << "]" << endl;
     return os;
 }
 
@@ -49,7 +57,7 @@ void Pokedex::mostrar(const Pokemon& poke) const {
 }
 
 void Pokedex::mostrarTodos() const {
-    for (const auto& to_print:Pokedata) {cout << to_print;}
+    for (const auto& to_print:Pokedata) {cout << to_print << "\n";}
 }
 
 void Pokedex::serializar() const {
