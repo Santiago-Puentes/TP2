@@ -16,6 +16,9 @@
 # Ignorar ejecutables por extensión
 *.out
 *.exe
+*.bin
+*.dat
+save
 
 # Config de VS Code
 /.vscode/

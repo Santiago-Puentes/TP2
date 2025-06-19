@@ -2,7 +2,7 @@
 CXX := g++
 
 # Opciones de compilación
-CXXFLAGS := -std=c++20 -I. -Wall -Wextra -Wpedantic -Werror \
+CXXFLAGS := -std=c++23 -Iinclude/. -Wall -Wextra -Wpedantic -Werror \
            -Wconversion -Wsign-compare -Wshadow -Wpointer-arith \
            -Wfloat-equal -Wcast-align -Wformat -Wmissing-declarations \
            -Wunreachable-code -Wundef -Winline -Wunused \
@@ -14,7 +14,8 @@ CXXFLAGS := -std=c++20 -I. -Wall -Wextra -Wpedantic -Werror \
 TARGET := programm
 
 # Archivos fuente (cpp)
-SRC_FILES := $(wildcard *.cpp)  # Todos los archivos .cpp en el directorio
+SRC_FILES := $(wildcard src/*.cpp) # Todos los cpp en src
+SRC_FILES += $(wildcard *.cpp)  # Todos los archivos .cpp en el directorio
 
 # Archivos objeto (o)
 OBJ_FILES := $(SRC_FILES:.cpp=.o)  # Convierte .cpp a .o para los archivos objeto
@@ -23,7 +24,7 @@ OBJ_FILES := $(SRC_FILES:.cpp=.o)  # Convierte .cpp a .o para los archivos objet
 all: $(TARGET)
 	@echo "Compilación completada."
 	@echo "Ejecutando el programa..."
-	valgrind ./$(TARGET)
+	./$(TARGET)
 	@echo "Ejecutando limpieza..."
 	$(MAKE) clean
 
