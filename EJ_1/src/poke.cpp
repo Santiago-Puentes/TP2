@@ -31,6 +31,7 @@ void Pokedex::mostrar(const Pokemon& poke) const {
 }
 
 void Pokedex::mostrarTodos() const {
+    cout << "Mostrando toda la Pokedex\n";
     for (const auto& [poke, info]:Pokedata) {cout << poke << info << "\n";}
     // Iterando sobre cada pair del mapa se manda al cout por desempaquetado de la estructura del pair
 }
@@ -104,7 +105,7 @@ void Pokedex::deserializar() {
         uint len;   // Para guardar el tamaño
         in.read(reinterpret_cast<char*>(&len), sizeof(len));    // Guarda el tamaño del string por leer
         s.resize(len);  // Reajusta el tamaño del string para evitar fuga de caracteres
-        in.read(&s[0], len);    // Guarda el sttring leído en la referencia del parámetro especificando el largo
+        in.read(&s[0], len);    // Guarda el string leído en la referencia del parámetro especificando el largo
     };
     
 
